@@ -49,7 +49,7 @@ class LogisticRegression_Classification:
     
     
     def optimize(self):
-        solution = minimize(self.loss,[0,0,0,0],method='Nelder-Mead')
+        solution = minimize(self.loss,[0,0,0,0],method='Powell')
         return solution.x
     
     def plot(self):
@@ -58,7 +58,7 @@ class LogisticRegression_Classification:
         y_predict = p[0]/(1+np.e**(-(result[0]-p[2])/p[1]))+p[3]
         plt.figure(1)
         plt.plot(result[0],result[2],'bo')
-        plt.plot(result[0],y_predict, color = 'r')
+        plt.scatter(result[0],y_predict, color = 'r')
         plt.xlabel('Weight (lbs)')
         plt.ylabel('Is Adult')
         plt.title("Logistic Regression - Classification")
@@ -70,7 +70,8 @@ class LogisticRegression_Classification:
         x_train=result[0]
         y_train=result[2]
         return x_train, y_train
-    
+
+
 if __name__ == '__main__':
     model_instance = LogisticRegression_Classification()
     model_instance.optimize()
